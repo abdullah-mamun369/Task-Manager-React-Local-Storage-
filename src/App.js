@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import AddTask from './Components/AddTask';
 import UpdateTask from './Components/UpdateTask';

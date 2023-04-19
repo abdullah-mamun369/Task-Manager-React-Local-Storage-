@@ -3,7 +3,9 @@ import React from 'react';
 const AddTask = () => {
     return (
         <div>
-            Add Page
+            <h2 class="text-5xl font-bold underline">
+                Hello world!
+            </h2>
         </div>
     );
 };
