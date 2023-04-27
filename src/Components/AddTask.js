@@ -1,5 +1,5 @@
-import React from 'react';
-// import { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 // import Calendar from 'react-calendar';
 import { AiOutlinePlus } from "react-icons/ai"
 import { BsThreeDotsVertical } from "react-icons/bs"
@@ -8,10 +8,21 @@ import { BsThreeDotsVertical } from "react-icons/bs"
 
 const AddTask = () => {
     // const [value, onChange] = useState(new Date());
+
+
+    const [addBtnClicked, setAddBtnClicked] = useState(false);
+
+    useEffect(() => {
+        console.log(`isToggled is now ${addBtnClicked}`);
+    }, [addBtnClicked])
+
     const handleAddTask = () => {
+        setAddBtnClicked(!addBtnClicked);
+    };
 
-    }
-
+    const handleAddedTask = () => {
+        setAddBtnClicked(false);
+    };
 
     return (
         <div className='grid grid-cols-5 gap-5 mt-10 mx-10'>
@@ -27,19 +38,20 @@ const AddTask = () => {
                     </div>
                 </div>
                 <button onClick={handleAddTask} className='hover:text-[#7e104e] flex items-center mx-4 mb-2'><span className='mr-2'><AiOutlinePlus /></span>Add a task</button>
-                <div className='bg-slate-100 p-4'>
-                    <div className='flex justify-between'>
-                        <div>
-                            <input className='bg-slate-100 border-none outline-none' type="text" placeholder='Title' />
-                            <input className='bg-slate-100 border-none outline-none text-sm' type="text" placeholder='Details' />
-                        </div>
-                        <div>
-                            <BsThreeDotsVertical />
+                {addBtnClicked === true &&
+                    <div className='bg-slate-100 p-4'>
+                        <div className='flex justify-between'>
+                            <div>
+                                <input className='bg-slate-100 border-none outline-none' type="text" placeholder='Title' />
+                                <input className='bg-slate-100 border-none outline-none text-sm' type="text" placeholder='Details' />
+                                <button onClick={handleAddedTask} className='bg-[#7e104e] text-white px-3 rounded mt-2 text-xs py-1'>Add Task</button>
+                            </div>
+                            <div>
+                                <BsThreeDotsVertical />
+                            </div>
                         </div>
                     </div>
-
-
-                </div>
+                }
             </div>
             <div className='mt-4'>
                 <button className='flex items-center text-sm font-semibold text-slate-400'><span className='mr-2'><AiOutlinePlus /></span>Add new list</button>
