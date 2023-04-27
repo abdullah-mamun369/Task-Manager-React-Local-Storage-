@@ -7,7 +7,7 @@
 } */
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .App-logo:hover {
     animation: App-logo-spin infinite 0.005s linear;
   }
 }
