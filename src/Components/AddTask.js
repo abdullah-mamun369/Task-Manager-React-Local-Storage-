@@ -28,7 +28,7 @@ const AddTask = () => {
         <div className='grid grid-cols-5 gap-5 mt-10 mx-10'>
             <div className='bg-white rounded-lg drop-shadow-md'>
                 <div className='mb-6 mx-4 mt-4 flex justify-between'>
-                    <h4 className='text-[#7e104e] font-semibold text-xl'>My Tasks</h4>
+                    <h4 className='text-[#7e104e] font-semibold text-xl'>Add a task</h4>
 
                     <div className="dropdown dropdown-right">
                         <button tabIndex={0} className=''><BsThreeDotsVertical /></button>
@@ -53,9 +53,16 @@ const AddTask = () => {
                     </div>
                 }
             </div>
-            <div className='mt-4'>
-                <button className='flex items-center text-sm font-semibold text-slate-400'><span className='mr-2'><AiOutlinePlus /></span>Add new list</button>
+            <div className='col-span-4 grid'>
+                <div className='mx-auto'>
+                    <h4 className='text-[#7e104e] font-bold text-2xl'>My Tasks</h4>
+                </div>
+                <div className=' rounded-lg drop-shadow-md grid grid-cols-4'>
+
+                </div>
+
             </div>
+
         </div>
     );
 };
