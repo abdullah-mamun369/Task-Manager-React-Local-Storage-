@@ -1,13 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
-import Calendar from 'react-calendar';
+// import { useState } from 'react';
+// import Calendar from 'react-calendar';
 import { AiOutlinePlus } from "react-icons/ai"
 import { BsThreeDotsVertical } from "react-icons/bs"
-import { TbSquareRounded } from "react-icons/tb"
-import { BiCheck } from "react-icons/bi"
+// import { TbSquareRounded } from "react-icons/tb"
+// import { BiCheck } from "react-icons/bi"
 
 const AddTask = () => {
-    const [value, onChange] = useState(new Date());
+    // const [value, onChange] = useState(new Date());
     const handleAddTask = () => {
 
     }
@@ -15,8 +15,8 @@ const AddTask = () => {
 
     return (
         <div className='grid grid-cols-5 gap-5 mt-10 mx-10'>
-            <div className='bg-white p-4 rounded-lg drop-shadow-md'>
-                <div className='mb-6 flex justify-between'>
+            <div className='bg-white rounded-lg drop-shadow-md'>
+                <div className='mb-6 mx-4 mt-4 flex justify-between'>
                     <h4 className='text-[#7e104e] font-semibold text-xl'>My Tasks</h4>
 
                     <div className="dropdown dropdown-right">
@@ -41,7 +41,7 @@ const AddTask = () => {
 
                 </div>
             </div>
-            <div className='flex items-center'>
+            <div className='mt-4'>
                 <button className='flex items-center text-sm font-semibold text-slate-400'><span className='mr-2'><AiOutlinePlus /></span>Add new list</button>
             </div>
         </div>
