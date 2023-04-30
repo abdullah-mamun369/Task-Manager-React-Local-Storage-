@@ -31,19 +31,52 @@ const AddTask = () => {
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
 
+
+    //   get previous Local storage value
+
+    const getTaskFromLocalStorage = () => {
+        let savedTask = localStorage.getItem("task")
+        let arrayTask = [];
+
+        if (savedTask) {
+            arrayTask = JSON.parse(savedTask)
+        }
+        return arrayTask;
+
+    }
+
     const handleTakeInputValue = (e) => {
 
         e.preventDefault();
-        setTitle(e.target.title.value)
-        setDetails(e.target.details.value)
+        const inputedTitle = e.target.title.value;
+        const inputedDetails = e.target.details.value;
+        setTitle(inputedTitle);
+        setDetails(inputedDetails);
 
         setAddBtnClicked(false);
         setTaskList(true);
+
+        // set task to local storage
+
+        const arrayTask = getTaskFromLocalStorage();
+
+        const task = {
+            id: 1,
+            title: inputedTitle,
+            details: inputedDetails
+        };
+
+        const taskStringifiedArray = arrayTask.push(task);
+        const arrayStringified = JSON.stringify(arrayTask)
+
+
+        localStorage.setItem("task", arrayStringified);
+
     }
 
     return (
         <div className='grid grid-cols-5 gap-5 mt-10 mx-10'>
-            <div className='bg-white rounded-lg drop-shadow-md'>
+            <div className='bg-white rounded-lg drop-shadow-sm h-[108px]'>
                 <div className='mb-6 mx-4 mt-4 flex justify-between'>
                     <h4 className='text-[#7e104e] font-semibold text-xl'>Add a task</h4>
 
@@ -67,7 +100,7 @@ const AddTask = () => {
             </div>
             <div className='col-span-4 grid'>
                 <div className='mx-auto'>
-                    <h4 className='text-[#7e104e] font-bold text-2xl'>My Tasks</h4>
+                    <h4 className='text-[#7e104e] font-bold text-2xl mb-5'>My Tasks</h4>
                 </div>
                 <div className=' rounded-lg drop-shadow-md grid grid-cols-4'>
 
