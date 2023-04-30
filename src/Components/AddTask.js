@@ -31,6 +31,12 @@ const AddTask = () => {
         setTasks(getTask);
     }, [])
 
+    // const getPreviousTaskFromLocalStorage = () => {
+    //     const getTask = JSON.parse(localStorage.getItem("task"))
+    //     setTasks(getTask);
+    // }
+
+    // getPreviousTaskFromLocalStorage();
 
 
     console.log(tasks);
@@ -53,6 +59,16 @@ const AddTask = () => {
         return arrayTask;
 
     }
+    const getIdFromLocalStorage = () => {
+        let savedId = localStorage.getItem("id")
+        let ObjectId = 1
+
+        if (savedId) {
+            ObjectId = JSON.parse(savedId)
+        }
+        return ObjectId;
+
+    }
 
     const handleTakeInputValue = (e) => {
 
@@ -69,8 +85,22 @@ const AddTask = () => {
 
         const arrayTask = getTaskFromLocalStorage();
 
+        const id = getIdFromLocalStorage();
+
+        console.log(id);
+
+
+
+
+
+        let newId = id + 1;
+        const idStringified = JSON.stringify(newId)
+        localStorage.setItem("id", idStringified);
+
+        console.log(newId);
+
         const task = {
-            id: 1,
+            id: newId,
             title: inputedTitle,
             details: inputedDetails,
             status: false
@@ -80,14 +110,19 @@ const AddTask = () => {
         const arrayStringified = JSON.stringify(arrayTask)
 
 
+
         localStorage.setItem("task", arrayStringified);
+
+
+        const getTask = JSON.parse(localStorage.getItem("task"))
+        setTasks(getTask);
 
     }
 
     return (
 
         <div>
-            <div className='bg-white rounded-lg drop-shadow-sm lg:w-1/3 mx-auto p-4 mt-5'>
+            <div className='bg-white rounded-lg drop-shadow-sm lg:w-1/3 mx-auto p-4 mt-10'>
                 <div className=' flex justify-between '>
                     <h4 className='text-[#7e104e] font-semibold text-xl'>Add a task</h4>
 
@@ -115,7 +150,7 @@ const AddTask = () => {
                     <h4 className='text-[#7e104e] font-bold text-2xl mb-5'>My Tasks</h4>
                 </div>
                 <div className=' rounded-lg drop-shadow-sm grid grid-cols-4 gap-5'>
-                    {taskList === true &&
+                    {/* {taskList === true &&
                         <div className='bg-white rounded-lg drop-shadow-sm p-4'>
                             <div>
                                 <h5 className='text-[#7e104e] font-semibold text-xl mb-1'>{title}</h5>
@@ -128,7 +163,7 @@ const AddTask = () => {
                             </div>
                         </div>
 
-                    }
+                    } */}
                     {tasks &&
                         tasks.map(task => <TaskList
                             key={task.id}
