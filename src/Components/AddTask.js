@@ -1,11 +1,11 @@
-// import React, { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import Calendar from 'react-calendar';
 import { AiOutlinePlus } from "react-icons/ai"
+import { AiFillEdit } from "react-icons/ai"
+import { AiFillDelete } from "react-icons/ai"
+import { MdOutlineDownloadDone } from "react-icons/md"
 // import { BsThreeDotsVertical } from "react-icons/bs"
 import TaskList from './TaskList';
-// import { TbSquareRounded } from "react-icons/tb"
-// import { BiCheck } from "react-icons/bi"
 
 const AddTask = () => {
     // const [value, onChange] = useState(new Date());
@@ -17,14 +17,23 @@ const AddTask = () => {
     const [addBtnClicked, setAddBtnClicked] = useState(false);
     const [taskList, setTaskList] = useState(false);
 
-    // useEffect(() => {
-    // }, [addBtnClicked])
 
     const handleAddTask = () => {
         setAddBtnClicked(!addBtnClicked);
     };
 
+    // Get Task From Local Storage
 
+    const [tasks, setTasks] = useState();
+
+    useEffect(() => {
+        const getTask = JSON.parse(localStorage.getItem("task"))
+        setTasks(getTask);
+    }, [])
+
+
+
+    console.log(tasks);
 
     // Take the input value and set to the task board
 
@@ -105,14 +114,30 @@ const AddTask = () => {
                 <div className='mx-auto'>
                     <h4 className='text-[#7e104e] font-bold text-2xl mb-5'>My Tasks</h4>
                 </div>
-                <div className=' rounded-lg drop-shadow-sm grid grid-cols-5'>
-
+                <div className=' rounded-lg drop-shadow-sm grid grid-cols-4 gap-5'>
                     {taskList === true &&
-                        <TaskList
-                            title={title}
-                            details={details}
-                        ></TaskList>
+                        <div className='bg-white rounded-lg drop-shadow-sm p-4'>
+                            <div>
+                                <h5 className='text-[#7e104e] font-semibold text-xl mb-1'>{title}</h5>
+                                <p className='mb-4'>{details}</p>
+                            </div>
+                            <div className='flex'>
+                                <button className='flex items-center text-sm hover:text-[#7e104e] mr-7'><AiFillEdit className='mr-1' /> Edit</button>
+                                <button className='flex items-center text-sm hover:text-[#7e104e] mr-7'><AiFillDelete className='mr-1' /> Delete</button>
+                                <button className='flex items-center text-sm hover:text-[#7e104e]'><MdOutlineDownloadDone className='mr-1' /> Mark as complete</button>
+                            </div>
+                        </div>
+
                     }
+                    {tasks &&
+                        tasks.map(task => <TaskList
+                            key={task.id}
+                            title={task.title}
+                            details={task.details}
+                        ></TaskList>)
+                    }
+
+
                 </div>
             </div>
         </div>
