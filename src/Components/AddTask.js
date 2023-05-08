@@ -39,7 +39,7 @@ const AddTask = () => {
     // getPreviousTaskFromLocalStorage();
 
 
-    console.log(tasks);
+    // console.log(tasks);
 
     // Take the input value and set to the task board
 
@@ -87,7 +87,7 @@ const AddTask = () => {
 
         const id = getIdFromLocalStorage();
 
-        console.log(id);
+        // console.log(id);
 
 
 
@@ -97,7 +97,7 @@ const AddTask = () => {
         const idStringified = JSON.stringify(newId)
         localStorage.setItem("id", idStringified);
 
-        console.log(newId);
+        // console.log(newId);
 
         const task = {
             id: newId,
@@ -117,6 +117,17 @@ const AddTask = () => {
         const getTask = JSON.parse(localStorage.getItem("task"))
         setTasks(getTask);
 
+    }
+
+
+    const handleEdit = (id, title, details) => {
+        console.log(id, title, details);
+    }
+    const handleDelete = (id) => {
+        console.log(id);
+    }
+    const handleComplete = (status) => {
+        console.log(status);
     }
 
     return (
@@ -169,6 +180,11 @@ const AddTask = () => {
                             key={task.id}
                             title={task.title}
                             details={task.details}
+                            id={task.id}
+                            status={task.status}
+                            handleEdit={handleEdit}
+                            handleDelete={handleDelete}
+                            handleComplete={handleComplete}
                         ></TaskList>)
                     }
 
