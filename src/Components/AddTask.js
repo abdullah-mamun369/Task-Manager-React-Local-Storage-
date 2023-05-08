@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 // import Calendar from 'react-calendar';
 import { AiOutlinePlus } from "react-icons/ai"
-import { AiFillEdit } from "react-icons/ai"
-import { AiFillDelete } from "react-icons/ai"
-import { MdOutlineDownloadDone } from "react-icons/md"
+// import { AiFillEdit } from "react-icons/ai"
+// import { AiFillDelete } from "react-icons/ai"
+// import { MdOutlineDownloadDone } from "react-icons/md"
 // import { BsThreeDotsVertical } from "react-icons/bs"
 import TaskList from './TaskList';
 
@@ -45,6 +45,9 @@ const AddTask = () => {
 
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
+    const [existingTitle, setExistingTitle] = useState();
+    const [existingDetails, setExistingDetails] = useState();
+    const [existingId, setExistingId] = useState();
 
 
     //   get previous Local storage value
@@ -120,9 +123,40 @@ const AddTask = () => {
     }
 
 
-    const handleEdit = (id, title, details) => {
+    const handleEdit = (id, title, details, e) => {
         console.log(id, title, details);
+        setExistingTitle(title)
+        setExistingDetails(details)
+        setExistingId(id)
     }
+
+
+    const handleUpdateTask = (e) => {
+        e.preventDefault();
+        const newInputedTitle = e.target.updatedTitle.value;
+        const newInputedDetails = e.target.updatedDetails.value;
+
+        let allTasks = [...tasks]
+
+        let selectedTask = allTasks[existingId - 2]
+        selectedTask.title = newInputedTitle
+        selectedTask.details = newInputedDetails;
+
+        const updatedTaskStringified = JSON.stringify(allTasks)
+
+
+
+        localStorage.setItem("task", updatedTaskStringified);
+
+
+        const getTask = JSON.parse(localStorage.getItem("task"))
+        setTasks(getTask);
+
+        console.log(allTasks, selectedTask, newInputedTitle, newInputedDetails);
+
+
+    }
+
     const handleDelete = (id) => {
         console.log(id);
     }
@@ -188,6 +222,20 @@ const AddTask = () => {
                         ></TaskList>)
                     }
 
+
+                </div>
+            </div>
+            {/* Put this part before </body> tag */}
+            <input type="checkbox" id="edit-task" className="modal-toggle" />
+            <div className="modal">
+                <div className="modal-box">
+                    <div className='bg-slate-100 p-4'>
+                        <form onSubmit={handleUpdateTask}>
+                            <input className='bg-slate-100 border-none outline-none w-full' name="updatedTitle" type="text" placeholder={existingTitle} />
+                            <input className='bg-slate-100 border-none outline-none text-sm w-full mb-5' name="updatedDetails" type="text" placeholder={existingDetails} />
+                            <button><label htmlFor="edit-task" className="bg-[#7e104e] text-white px-3 rounded mt-2 py-1">Update</label></button>
+                        </form>
+                    </div>
 
                 </div>
             </div>
