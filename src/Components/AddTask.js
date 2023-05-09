@@ -45,8 +45,8 @@ const AddTask = () => {
 
     const [title, setTitle] = useState();
     const [details, setDetails] = useState();
-    const [existingTitle, setExistingTitle] = useState();
-    const [existingDetails, setExistingDetails] = useState();
+    // const [existingTitle, setExistingTitle] = useState();
+    // const [existingDetails, setExistingDetails] = useState();
     const [existingId, setExistingId] = useState();
 
 
@@ -124,10 +124,11 @@ const AddTask = () => {
 
 
     const handleEdit = (id, title, details, e) => {
-        console.log(id, title, details);
-        setExistingTitle(title)
-        setExistingDetails(details)
+
+        // setExistingTitle(title)
+        // setExistingDetails(details)
         setExistingId(id)
+        console.log(existingId, id, title, details);
     }
 
 
@@ -136,13 +137,27 @@ const AddTask = () => {
         const newInputedTitle = e.target.updatedTitle.value;
         const newInputedDetails = e.target.updatedDetails.value;
 
-        let allTasks = [...tasks]
+        console.log(existingId);
 
-        let selectedTask = allTasks[existingId - 2]
+        let selectedTask = tasks.filter((task => {
+            return task.id === existingId;
+        }))
+
+        console.log(selectedTask);
+
+        const indexOfSelectedTask = tasks.indexOf(selectedTask)
+
+        const existingTask = tasks[indexOfSelectedTask + 1]
+
+        console.log(existingTask);
+        // console.log(selectedTask, indexOfSelectedTask, tasks);
+
+
+
         selectedTask.title = newInputedTitle
         selectedTask.details = newInputedDetails;
 
-        const updatedTaskStringified = JSON.stringify(allTasks)
+        const updatedTaskStringified = JSON.stringify(tasks)
 
 
 
@@ -152,14 +167,33 @@ const AddTask = () => {
         const getTask = JSON.parse(localStorage.getItem("task"))
         setTasks(getTask);
 
-        console.log(allTasks, selectedTask, newInputedTitle, newInputedDetails);
+        // console.log(allTasks, selectedTask, newInputedTitle, newInputedDetails);
 
 
     }
 
     const handleDelete = (id) => {
         console.log(id);
+
+
+        const filteredTask = tasks.filter((task => {
+            return task.id !== id;
+        }))
+
+        console.log(filteredTask);
+
+        setTasks(filteredTask);
+
+        const updatedTaskStringified = JSON.stringify(filteredTask)
+
+
+        localStorage.setItem("task", updatedTaskStringified);
+
     }
+
+
+
+
     const handleComplete = (status) => {
         console.log(status);
     }
