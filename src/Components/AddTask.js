@@ -229,10 +229,11 @@ const AddTask = () => {
             <input type="checkbox" id="edit-task" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box">
-                    <div className='bg-slate-100 p-4'>
+                    <label htmlFor="edit-task" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <div className=' p-4'>
                         <form onSubmit={handleUpdateTask}>
-                            <input className='bg-slate-100 border-none outline-none w-full' name="updatedTitle" type="text" placeholder={existingTitle} />
-                            <input className='bg-slate-100 border-none outline-none text-sm w-full mb-5' name="updatedDetails" type="text" placeholder={existingDetails} />
+                            <input className='border-none outline-none w-full' name="updatedTitle" type="text" placeholder="New Title" />
+                            <input className='border-none outline-none text-sm w-full mb-5' name="updatedDetails" type="text" placeholder="New Details" />
                             <button><label htmlFor="edit-task" className="bg-[#7e104e] text-white px-3 rounded mt-2 py-1">Update</label></button>
                         </form>
                     </div>
