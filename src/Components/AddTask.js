@@ -15,7 +15,7 @@ const AddTask = () => {
     // Task Input section show and hide
 
     const [addBtnClicked, setAddBtnClicked] = useState(false);
-    const [taskList, setTaskList] = useState(false);
+    // const [taskList, setTaskList] = useState(false);
 
 
     const handleAddTask = () => {
@@ -43,8 +43,8 @@ const AddTask = () => {
 
     // Take the input value and set to the task board
 
-    const [title, setTitle] = useState();
-    const [details, setDetails] = useState();
+    // const [title, setTitle] = useState();
+    // const [details, setDetails] = useState();
     // const [existingTitle, setExistingTitle] = useState();
     // const [existingDetails, setExistingDetails] = useState();
     const [existingId, setExistingId] = useState();
@@ -78,11 +78,11 @@ const AddTask = () => {
         e.preventDefault();
         const inputedTitle = e.target.title.value;
         const inputedDetails = e.target.details.value;
-        setTitle(inputedTitle);
-        setDetails(inputedDetails);
+        // setTitle(inputedTitle);
+        // setDetails(inputedDetails);
 
         setAddBtnClicked(false);
-        setTaskList(true);
+        // setTaskList(true);
 
         // set task to local storage
 
@@ -128,34 +128,31 @@ const AddTask = () => {
         // setExistingTitle(title)
         // setExistingDetails(details)
         setExistingId(id)
-        console.log(existingId, id, title, details);
+        // console.log(existingId, id, title, details);
     }
 
 
     const handleUpdateTask = (e) => {
         e.preventDefault();
-        const newInputedTitle = e.target.updatedTitle.value;
-        const newInputedDetails = e.target.updatedDetails.value;
+        let newInputedTitle = e.target.updatedTitle.value;
+        let newInputedDetails = e.target.updatedDetails.value;
 
-        console.log(existingId);
+        // console.log(existingId);
 
-        let selectedTask = tasks.filter((task => {
+        let indexSelectedTask = tasks.findIndex((task => {
             return task.id === existingId;
         }))
 
-        console.log(selectedTask);
+        // console.log(indexSelectedTask);
 
-        const indexOfSelectedTask = tasks.indexOf(selectedTask)
 
-        const existingTask = tasks[indexOfSelectedTask + 1]
-
-        console.log(existingTask);
+        const existingTask = tasks[indexSelectedTask]
         // console.log(selectedTask, indexOfSelectedTask, tasks);
 
 
 
-        selectedTask.title = newInputedTitle
-        selectedTask.details = newInputedDetails;
+        existingTask.title = newInputedTitle
+        existingTask.details = newInputedDetails;
 
         const updatedTaskStringified = JSON.stringify(tasks)
 
@@ -169,18 +166,20 @@ const AddTask = () => {
 
         // console.log(allTasks, selectedTask, newInputedTitle, newInputedDetails);
 
+        // newInputedTitle = "";
+        // newInputedDetails = "";
 
     }
 
     const handleDelete = (id) => {
-        console.log(id);
+        // console.log(id);
 
 
         const filteredTask = tasks.filter((task => {
             return task.id !== id;
         }))
 
-        console.log(filteredTask);
+        // console.log(filteredTask);
 
         setTasks(filteredTask);
 
@@ -194,8 +193,29 @@ const AddTask = () => {
 
 
 
-    const handleComplete = (status) => {
-        console.log(status);
+    const handleComplete = (status, id) => {
+        let indexSelectedTask = tasks.findIndex((task => {
+            return task.id === id;
+        }))
+
+        const existingTask = tasks[indexSelectedTask]
+
+        if (status === false) {
+            existingTask.status = true;
+        }
+        else {
+            existingTask.status = false;
+        }
+
+        const updatedTaskStringified = JSON.stringify(tasks)
+
+
+
+        localStorage.setItem("task", updatedTaskStringified);
+
+
+        const getTask = JSON.parse(localStorage.getItem("task"))
+        setTasks(getTask);
     }
 
     return (
